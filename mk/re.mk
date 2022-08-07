@@ -242,7 +242,8 @@ endif
 	LFLAGS		+= -fPIC
 	# add libraries for darwin dns servers
 	LFLAGS		+= -framework SystemConfiguration \
-			   -framework CoreFoundation
+			   -framework CoreFoundation \
+			   -framework OpenSSL
 	SH_LFLAGS	+= -dynamiclib
 ifeq ($(CC_NAME),gcc)
 	SH_LFLAGS	+= -dylib
@@ -472,7 +473,6 @@ USE_OPENSSL := $(shell $(call CC_TEST,openssl/ssl.h))
 
 ifneq ($(USE_OPENSSL),)
 CFLAGS  += -DUSE_OPENSSL -DUSE_TLS
-LIBS    += -lssl -lcrypto
 USE_TLS := yes
 
 USE_OPENSSL_DTLS := $(shell $(call CC_TEST,openssl/dtls1.h))
